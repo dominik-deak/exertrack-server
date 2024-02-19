@@ -1,0 +1,38 @@
+# Production
+dist
+build
+
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# TypeScript
+*.tsbuildinfo
+
+# MacOS
+.DS_Store
+
+# Linux
+.*.swp
+*~
+
+# Logs
+logs
+*.log
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
