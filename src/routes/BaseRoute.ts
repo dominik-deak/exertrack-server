@@ -1,0 +1,22 @@
+import { Application, Router } from 'express';
+
+/**
+ * Base route to be extended by other routes
+ */
+abstract class BaseRoute {
+	public router: Router;
+	public abstract path: string;
+
+	constructor() {
+		this.router = Router();
+		this.configureRoutes();
+	}
+
+	public abstract configureRoutes(): void;
+
+	public addTo(app: Application): void {
+		app.use(this.path, this.router);
+	}
+}
+
+export default BaseRoute;

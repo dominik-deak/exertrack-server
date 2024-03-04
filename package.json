@@ -9,18 +9,27 @@
 		"prebuild": "rimraf dist",
 		"build": "npx tsc",
 		"prestart": "npm run build",
-		"start": "node dist/index.js"
+		"start": "node dist/index.js",
+		"prisma": "npx prisma generate",
+		"prisma-test": "npx ts-node prisma/test.ts"
 	},
 	"dependencies": {
+		"@prisma/client": "^5.10.2",
+		"bcrypt": "^5.1.1",
 		"dotenv": "^16.4.4",
-		"express": "^4.18.2"
+		"express": "^4.18.2",
+		"jsonwebtoken": "^9.0.2",
+		"mongodb": "^6.3.0"
 	},
 	"devDependencies": {
+		"@types/bcrypt": "^5.0.2",
 		"@types/dotenv": "^8.2.0",
 		"@types/express": "^4.17.21",
+		"@types/jsonwebtoken": "^9.0.6",
 		"@types/node": "^20.11.19",
 		"nodemon": "^3.0.3",
 		"prettier": "3.2.5",
+		"prisma": "^5.10.2",
 		"rimraf": "^5.0.5",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.3.3"

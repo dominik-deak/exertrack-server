@@ -1,13 +1,19 @@
 {
 	"compilerOptions": {
+		/* Linting */
 		"strict": true,
-		"rootDir": "./src",
-		"outDir": "./dist",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+
 		"target": "es6",
 		"module": "CommonJS",
 		"moduleResolution": "node",
 		"esModuleInterop": true,
-		"types": ["node"]
+		"types": ["node"],
+
+		"rootDir": "./src",
+		"outDir": "./dist"
 	},
 	"include": ["src/**/*.ts"],
 	"exclude": ["node_modules"]

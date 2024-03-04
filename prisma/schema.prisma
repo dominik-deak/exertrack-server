@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// NOTE: whever the schema changes
+// run `npx prisma generate` to get new client
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    email     String   @unique
+    password  String // Salt is handled by bcrypt, not stored in the database
+    firstName String?
+    lastName  String?
+    created   DateTime @default(now())
+    updated   DateTime @updatedAt
+
+    // These aren't nested documents within User documents
+    // they are references between separate collections used by the Prisma schema.
+    // They can be used by Prisma to perform additional queries under the hood
+    // to retrieve these related documents if needed.
+    Workouts  Workout[]
+    Exercises Exercise[]
+    Templates Template[]
+}
+
+model Workout {
+    id         String            @id @default(auto()) @map("_id") @db.ObjectId
+    userId     String            @db.ObjectId
+    user       User              @relation(fields: [userId], references: [id])
+    templateId String?           @db.ObjectId
+    duration   Int
+    created    DateTime          @default(now())
+    updated    DateTime          @updatedAt
+    exercises  WorkoutExercise[] // Nested array of WorkoutExercise objects within the Workout document
+}
+
+type WorkoutExercise {
+    exerciseId String               @db.ObjectId
+    sets       WorkoutExerciseSet[] // Nested array of WorkoutExerciseSet objects within the WorkoutExercise object
+}
+
+type WorkoutExerciseSet {
+    weight Float
+    reps   Int
+}
+
+model Exercise {
+    id       String   @id @default(auto()) @map("_id") @db.ObjectId
+    name     String
+    bodypart String
+    type     String
+    userId   String?  @db.ObjectId
+    user     User?    @relation(fields: [userId], references: [id])
+    created  DateTime @default(now())
+    updated  DateTime @updatedAt
+}
+
+model Template {
+    id        String             @id @default(auto()) @map("_id") @db.ObjectId
+    name      String
+    userId    String?            @db.ObjectId
+    user      User?              @relation(fields: [userId], references: [id])
+    created   DateTime           @default(now())
+    updated   DateTime           @updatedAt
+    exercises TemplateExercise[] // Nested array of TemplateExercise objects within the Template document
+}
+
+type TemplateExercise {
+    exerciseId String @db.ObjectId
+    sets       Int
+    repsMin    Int
+    repsMax    Int
+}

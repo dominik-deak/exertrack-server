@@ -3,15 +3,15 @@ import express from 'express';
 import routes from './routes/routes';
 
 dotenv.config();
-const app = express();
+const server = express();
 const PORT = process.env.PORT;
 
-routes.forEach(route => {
-	app.use(route);
-});
+routes.forEach(route => route.addTo(server));
 
-app.listen(PORT, () => {
-	console.log(`Server is running at http://localhost:${PORT}`);
-}).on('error', err => {
-	throw new Error(err.message);
-});
+server
+	.listen(PORT, () => {
+		console.log(`Server is running at http://localhost:${PORT}`);
+	})
+	.on('error', err => {
+		throw new Error(err.message);
+	});
