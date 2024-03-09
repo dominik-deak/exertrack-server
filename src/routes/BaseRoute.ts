@@ -9,12 +9,15 @@ abstract class BaseRoute {
 
 	constructor() {
 		this.router = Router();
-		this.configureRoutes();
 	}
 
 	public abstract configureRoutes(): void;
 
-	public addTo(app: Application): void {
+	public initialiseRoutes() {
+		this.configureRoutes();
+	}
+
+	public addTo(app: Application) {
 		app.use(this.path, this.router);
 	}
 }

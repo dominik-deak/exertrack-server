@@ -1,20 +1,38 @@
 import { Request, Response } from 'express';
-import AuthService from '../../AuthService';
+import AuthService from '../../middleware/AuthService';
 import BaseRoute from '../BaseRoute';
 
 class UserRoutes extends BaseRoute {
-	public path = '/api/users';
+	public path = '/users';
 
-	public configureRoutes(): void {
-		this.router.get('/', AuthService.verifyToken, this.getUsers);
-		this.router.get('/:id', AuthService.verifyToken, this.getUserById);
+	constructor() {
+		super();
+		this.initialiseRoutes();
 	}
 
-	getUsers(_: Request, res: Response): void {
-		res.send('List of users');
+	public configureRoutes() {
+		this.router.use(AuthService.verifyToken); // Apply the middleware to all user routes
+		this.router.get('/', this.getUsers.bind(this));
+		this.router.get('/:id', this.getUserById.bind(this));
 	}
 
-	getUserById(req: Request, res: Response): void {
+	getUsers(req: Request, res: Response) {
+		if (req.user) {
+			res.status(200).json({
+				message: 'This is a protected route',
+				user: {
+					id: req.user.id,
+					email: req.user.email,
+					firstName: req.user.firstName,
+					lastName: req.user.lastName
+				}
+			});
+		} else {
+			res.status(404).json({ message: 'User not found' });
+		}
+	}
+
+	getUserById(req: Request, res: Response) {
 		res.send(`User with ID ${req.params.id}`);
 	}
 }

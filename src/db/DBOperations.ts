@@ -17,6 +17,28 @@ class DBOperations {
 		return DBOperations.instance;
 	}
 
+	// Refresh Token Operations Start //
+	public async createRefreshToken(token: string) {
+		const createdToken = await this.db.refreshToken.create({
+			data: { token }
+		});
+		return createdToken.id;
+	}
+
+	public async getRefreshToken(token: string) {
+		const refreshToken = await this.db.refreshToken.findUnique({
+			where: { token }
+		});
+		return refreshToken;
+	}
+
+	public async deleteRefreshToken(token: string) {
+		await this.db.refreshToken.delete({
+			where: { token }
+		});
+	}
+	// Refresh Token Operations End //
+
 	// User Operations Start //
 	public async createUser(email: string, hashedPassword: string) {
 		const user = await this.db.user.create({
@@ -28,11 +50,16 @@ class DBOperations {
 		return user.id;
 	}
 
-	public async getUser(email: string) {
+	public async getUserById(userId: string) {
 		const user = await this.db.user.findUnique({
-			where: {
-				email
-			}
+			where: { id: userId }
+		});
+		return user;
+	}
+
+	public async getUserByEmail(email: string) {
+		const user = await this.db.user.findUnique({
+			where: { email }
 		});
 		return user;
 	}

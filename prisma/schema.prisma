@@ -13,6 +13,11 @@ generator client {
     provider = "prisma-client-js"
 }
 
+model RefreshToken {
+    id    String @id @default(auto()) @map("_id") @db.ObjectId
+    token String @unique
+}
+
 model User {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     email     String   @unique

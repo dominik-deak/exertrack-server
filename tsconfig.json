@@ -1,19 +1,21 @@
 {
 	"compilerOptions": {
+		"rootDir": "./src",
+		"outDir": "./dist",
+
 		/* Linting */
 		"strict": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true,
 
+		/* Bundler mode */
 		"target": "es6",
 		"module": "CommonJS",
 		"moduleResolution": "node",
 		"esModuleInterop": true,
-		"types": ["node"],
-
-		"rootDir": "./src",
-		"outDir": "./dist"
+		"types": ["node"]
 	},
 	"include": ["src/**/*.ts"],
 	"exclude": ["node_modules"]
