@@ -4,6 +4,12 @@ import TemplateRoutes from './protected/TemplateRoutes';
 import UserRoutes from './protected/UserRoutes';
 import WorkoutRoutes from './protected/WorkoutRoutes';
 
-const routes = [new AuthRoutes(), new UserRoutes(), new WorkoutRoutes(), new TemplateRoutes(), new ExerciseRoutes()];
+const routes = [
+	AuthRoutes.getInstance(),
+	UserRoutes.getInstance(),
+	WorkoutRoutes.getInstance(),
+	TemplateRoutes.getInstance(),
+	ExerciseRoutes.getInstance()
+];
 
 export default routes;

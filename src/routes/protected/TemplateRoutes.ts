@@ -2,7 +2,21 @@ import { Request, Response } from 'express';
 import BaseRoute from '../BaseRoute';
 
 class TemplateRoutes extends BaseRoute {
+	private static instance: TemplateRoutes;
 	public path = '/api/users';
+
+	private constructor() {
+		super();
+		this.initialiseRoutes();
+	}
+
+	public static getInstance(): TemplateRoutes {
+		if (!TemplateRoutes.instance) {
+			TemplateRoutes.instance = new TemplateRoutes();
+		}
+
+		return TemplateRoutes.instance;
+	}
 
 	public configureRoutes(): void {
 		this.router.get('/', this.getUsers);

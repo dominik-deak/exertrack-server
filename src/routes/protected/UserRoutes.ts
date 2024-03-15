@@ -3,11 +3,20 @@ import AuthService from '../../middleware/AuthService';
 import BaseRoute from '../BaseRoute';
 
 class UserRoutes extends BaseRoute {
+	private static instance: UserRoutes;
 	public path = '/users';
 
-	constructor() {
+	private constructor() {
 		super();
 		this.initialiseRoutes();
+	}
+
+	public static getInstance(): UserRoutes {
+		if (!UserRoutes.instance) {
+			UserRoutes.instance = new UserRoutes();
+		}
+
+		return UserRoutes.instance;
 	}
 
 	public configureRoutes() {

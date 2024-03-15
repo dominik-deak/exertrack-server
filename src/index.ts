@@ -1,3 +1,4 @@
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import fs from 'fs';
@@ -34,6 +35,7 @@ if (!process.env.JWT_REFRESH_SECRET) {
 const server = express();
 const PORT = process.env.PORT;
 server.use(express.json());
+server.use(cors()); // TODO disable cors for production
 
 // Load routes
 routes.forEach(route => route.addTo(server));

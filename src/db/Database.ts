@@ -1,6 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 
-// singleton
+/**
+ * Singleton database class.
+ * Uses Prisma Client.
+ */
 class Database {
 	private static instance: PrismaClient;
 

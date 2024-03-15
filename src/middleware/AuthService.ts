@@ -4,7 +4,7 @@
 
 import { NextFunction, Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import DBOperations from '../db/DBOperations';
+import UserOperations from '../db/UserOperations';
 
 /**
  * JWT Authentication Middleware.
@@ -12,7 +12,7 @@ import DBOperations from '../db/DBOperations';
  * To be used by protected routes.
  */
 class AuthService {
-	private static db = DBOperations.getInstance();
+	private static userOps = UserOperations.getInstance();
 
 	public static verifyToken(req: Request, res: Response, next: NextFunction) {
 		const authHeader = req.headers.authorization;
@@ -33,7 +33,8 @@ class AuthService {
 			}
 
 			try {
-				const user = await AuthService.db.getUserById(userId);
+				// `this.userOps` won't work because `userOps` static
+				const user = await AuthService.userOps.getUserById(userId);
 				if (!user) {
 					return res.status(404).json({ error: 'User not found' });
 				}
