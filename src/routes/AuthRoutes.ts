@@ -46,7 +46,7 @@ class AuthRoutes extends BaseRoute {
 		return jwt.sign({ userId: userId }, process.env.JWT_REFRESH_SECRET as string);
 	}
 
-	async register(req: Request, res: Response) {
+	private async register(req: Request, res: Response) {
 		const { email, password } = req.body;
 
 		try {
@@ -70,7 +70,7 @@ class AuthRoutes extends BaseRoute {
 		}
 	}
 
-	async login(req: Request, res: Response) {
+	private async login(req: Request, res: Response) {
 		const { email, password } = req.body;
 
 		try {
@@ -100,7 +100,7 @@ class AuthRoutes extends BaseRoute {
 		}
 	}
 
-	async exchangeTokens(req: Request, res: Response) {
+	private async exchangeTokens(req: Request, res: Response) {
 		const { refreshToken } = req.body;
 		if (!refreshToken) {
 			return res.status(401).json({ error: 'No token in request' });
@@ -135,7 +135,7 @@ class AuthRoutes extends BaseRoute {
 		);
 	}
 
-	async logout(req: Request, res: Response) {
+	private async logout(req: Request, res: Response) {
 		const { refreshToken } = req.body;
 		if (!refreshToken) {
 			return res.status(401).json({ error: 'No token in request' });
@@ -156,7 +156,7 @@ class AuthRoutes extends BaseRoute {
 		}
 	}
 
-	async deleteAccount(req: Request, res: Response) {
+	private async deleteAccount(req: Request, res: Response) {
 		const { refreshToken } = req.body;
 		if (!refreshToken) {
 			return res.status(401).json({ error: 'No token in request' });

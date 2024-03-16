@@ -20,12 +20,12 @@ class UserRoutes extends BaseRoute {
 	}
 
 	public configureRoutes() {
-		this.router.use(AuthService.verifyToken); // Apply the middleware to all user routes
+		this.router.use(AuthService.verifyToken); // Applies middleware to all routes
 		this.router.get('/', this.getUsers.bind(this));
 		this.router.get('/:id', this.getUserById.bind(this));
 	}
 
-	getUsers(req: Request, res: Response) {
+	private getUsers(req: Request, res: Response) {
 		if (req.user) {
 			res.status(200).json({
 				message: 'This is a protected route',
@@ -41,7 +41,7 @@ class UserRoutes extends BaseRoute {
 		}
 	}
 
-	getUserById(req: Request, res: Response) {
+	private getUserById(req: Request, res: Response) {
 		res.send(`User with ID ${req.params.id}`);
 	}
 }

@@ -1,0 +1,41 @@
+[
+	{ "bodypart": "Chest", "type": "Free weight", "name": "Barbell Press" },
+	{ "bodypart": "Chest", "type": "Machine", "name": "Machine Chest Fly" },
+	{ "bodypart": "Chest", "type": "Bodyweight", "name": "Dips" },
+
+	{ "bodypart": "Back", "type": "Free weight", "name": "Barbell Row" },
+	{ "bodypart": "Back", "type": "Machine", "name": "Lat Pulldown" },
+	{ "bodypart": "Back", "type": "Bodyweight", "name": "Pull-Ups" },
+
+	{ "bodypart": "Shoulders", "type": "Free weight", "name": "Dumbbell Lateral raises" },
+	{ "bodypart": "Shoulders", "type": "Machine", "name": "Machine Reverse Flyes" },
+	{ "bodypart": "Shoulders", "type": "Bodyweight", "name": "Handstand Push-Ups" },
+
+	{ "bodypart": "Biceps", "type": "Free weight", "name": "Barbell Curl" },
+	{ "bodypart": "Biceps", "type": "Machine", "name": "Cable Curl" },
+	{ "bodypart": "Biceps", "type": "Bodyweight", "name": "Chin-Ups" },
+
+	{ "bodypart": "Triceps", "type": "Free weight", "name": "Skull Crushers" },
+	{ "bodypart": "Triceps", "type": "Machine", "name": "Tricep Pushdowns" },
+	{ "bodypart": "Triceps", "type": "Bodyweight", "name": "Bench Dips" },
+
+	{ "bodypart": "Quads", "type": "Free weight", "name": "Barbell Squats" },
+	{ "bodypart": "Quads", "type": "Machine", "name": "Leg Press" },
+	{ "bodypart": "Quads", "type": "Bodyweight", "name": "Pistol Squats" },
+
+	{ "bodypart": "Hamstrings", "type": "Free weight", "name": "Stiff-Leg Deadlifts" },
+	{ "bodypart": "Hamstrings", "type": "Machine", "name": "Machine Leg Curl" },
+	{ "bodypart": "Hamstrings", "type": "Bodyweight", "name": "Nordic Curls" },
+
+	{ "bodypart": "Glutes", "type": "Free weight", "name": "Barbell Hip Thrusts" },
+	{ "bodypart": "Glutes", "type": "Machine", "name": "Machine Glute Kickback" },
+	{ "bodypart": "Glutes", "type": "Bodyweight", "name": "Glute-Ham Raise" },
+
+	{ "bodypart": "Calves", "type": "Free weight", "name": "Weighted Calf Raises" },
+	{ "bodypart": "Calves", "type": "Machine", "name": "Machine Calf Raises" },
+	{ "bodypart": "Calves", "type": "Bodyweight", "name": "Standing Calf Raises" },
+
+	{ "bodypart": "Abs", "type": "Free weight", "name": "Weighted Sit-Ups" },
+	{ "bodypart": "Abs", "type": "Machine", "name": "Cable Crunches" },
+	{ "bodypart": "Abs", "type": "Bodyweight", "name": "Leg Raises" }
+]

@@ -1,6 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import Database from './Database';
 
+/**
+ * User database operations repository class
+ */
 class UserOperations {
 	private static instance: UserOperations;
 	private db: PrismaClient;

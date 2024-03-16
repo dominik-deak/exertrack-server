@@ -23,11 +23,11 @@ class WorkoutRoutes extends BaseRoute {
 		this.router.get('/:id', this.getUserById);
 	}
 
-	getUsers(_: Request, res: Response): void {
+	private getUsers(_: Request, res: Response): void {
 		res.send('List of users');
 	}
 
-	getUserById(req: Request, res: Response): void {
+	private getUserById(req: Request, res: Response): void {
 		res.send(`User with ID ${req.params.id}`);
 	}
 }
