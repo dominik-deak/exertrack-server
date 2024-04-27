@@ -10,6 +10,9 @@ class Database {
 	// Private constructor to prevent direct instantiation.
 	private constructor() {}
 
+	/**
+	 * @returns Database instance
+	 */
 	public static getInstance(): PrismaClient {
 		if (!Database.instance) {
 			Database.instance = new PrismaClient();

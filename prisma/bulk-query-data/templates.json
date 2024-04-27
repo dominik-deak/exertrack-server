@@ -2,64 +2,64 @@
 	{
 		"name": "Full Body",
 		"exercises": [
-			{ "exerciseId": "65f5ed8ad2a72db026241d94", "sets": 3, "repsMin": 6, "repsMax": 8 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d98", "sets": 3, "repsMin": 8, "repsMax": 12 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d9a", "sets": 3, "repsMin": 10, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241da3", "sets": 3, "repsMin": 6, "repsMax": 8 },
-			{ "exerciseId": "65f5ed8ad2a72db026241dad", "sets": 3, "repsMin": 12, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241db1", "sets": 3, "repsMin": 15, "repsMax": 20 }
+			{ "id": "65f5ed8ad2a72db026241d94", "sets": 3, "repsMin": 6, "repsMax": 8 },
+			{ "id": "65f5ed8ad2a72db026241d98", "sets": 3, "repsMin": 8, "repsMax": 12 },
+			{ "id": "65f5ed8ad2a72db026241d9a", "sets": 3, "repsMin": 10, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241da3", "sets": 3, "repsMin": 6, "repsMax": 8 },
+			{ "id": "65f5ed8ad2a72db026241dad", "sets": 3, "repsMin": 12, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241db1", "sets": 3, "repsMin": 15, "repsMax": 20 }
 		]
 	},
 	{
 		"name": "Upper Body",
 		"exercises": [
-			{ "exerciseId": "65f5ed8ad2a72db026241d94", "sets": 3, "repsMin": 6, "repsMax": 8 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d98", "sets": 3, "repsMin": 8, "repsMax": 12 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d9a", "sets": 3, "repsMin": 10, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d9e", "sets": 3, "repsMin": 12, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241da1", "sets": 3, "repsMin": 12, "repsMax": 15 }
+			{ "id": "65f5ed8ad2a72db026241d94", "sets": 3, "repsMin": 6, "repsMax": 8 },
+			{ "id": "65f5ed8ad2a72db026241d98", "sets": 3, "repsMin": 8, "repsMax": 12 },
+			{ "id": "65f5ed8ad2a72db026241d9a", "sets": 3, "repsMin": 10, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241d9e", "sets": 3, "repsMin": 12, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241da1", "sets": 3, "repsMin": 12, "repsMax": 15 }
 		]
 	},
 	{
 		"name": "Lower Body",
 		"exercises": [
-			{ "exerciseId": "65f5ed8ad2a72db026241da3", "sets": 3, "repsMin": 6, "repsMax": 8 },
-			{ "exerciseId": "65f5ed8ad2a72db026241da6", "sets": 3, "repsMin": 8, "repsMax": 10 },
-			{ "exerciseId": "65f5ed8ad2a72db026241da9", "sets": 3, "repsMin": 8, "repsMax": 12 },
-			{ "exerciseId": "65f5ed8ad2a72db026241dad", "sets": 3, "repsMin": 15, "repsMax": 20 },
-			{ "exerciseId": "65f5ed8ad2a72db026241db1", "sets": 3, "repsMin": 15, "repsMax": 20 }
+			{ "id": "65f5ed8ad2a72db026241da3", "sets": 3, "repsMin": 6, "repsMax": 8 },
+			{ "id": "65f5ed8ad2a72db026241da6", "sets": 3, "repsMin": 8, "repsMax": 10 },
+			{ "id": "65f5ed8ad2a72db026241da9", "sets": 3, "repsMin": 8, "repsMax": 12 },
+			{ "id": "65f5ed8ad2a72db026241dad", "sets": 3, "repsMin": 15, "repsMax": 20 },
+			{ "id": "65f5ed8ad2a72db026241db1", "sets": 3, "repsMin": 15, "repsMax": 20 }
 		]
 	},
 	{
 		"name": "Push",
 		"exercises": [
-			{ "exerciseId": "65f5ed8ad2a72db026241d94", "sets": 3, "repsMin": 8, "repsMax": 10 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d95", "sets": 3, "repsMin": 12, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d9a", "sets": 5, "repsMin": 12, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241da1", "sets": 3, "repsMin": 15, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241da0", "sets": 3, "repsMin": 8, "repsMax": 12 }
+			{ "id": "65f5ed8ad2a72db026241d94", "sets": 3, "repsMin": 8, "repsMax": 10 },
+			{ "id": "65f5ed8ad2a72db026241d95", "sets": 3, "repsMin": 12, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241d9a", "sets": 5, "repsMin": 12, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241da1", "sets": 3, "repsMin": 15, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241da0", "sets": 3, "repsMin": 8, "repsMax": 12 }
 		]
 	},
 	{
 		"name": "Pull",
 		"exercises": [
-			{ "exerciseId": "65f5ed8ad2a72db026241d97", "sets": 3, "repsMin": 8, "repsMax": 12 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d98", "sets": 3, "repsMin": 8, "repsMax": 12 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d9b", "sets": 5, "repsMin": 12, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d9d", "sets": 3, "repsMin": 8, "repsMax": 12 },
-			{ "exerciseId": "65f5ed8ad2a72db026241d9e", "sets": 3, "repsMin": 12, "repsMax": 15 }
+			{ "id": "65f5ed8ad2a72db026241d97", "sets": 3, "repsMin": 8, "repsMax": 12 },
+			{ "id": "65f5ed8ad2a72db026241d98", "sets": 3, "repsMin": 8, "repsMax": 12 },
+			{ "id": "65f5ed8ad2a72db026241d9b", "sets": 5, "repsMin": 12, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241d9d", "sets": 3, "repsMin": 8, "repsMax": 12 },
+			{ "id": "65f5ed8ad2a72db026241d9e", "sets": 3, "repsMin": 12, "repsMax": 15 }
 		]
 	},
 	{
 		"name": "Legs",
 		"exercises": [
-			{ "exerciseId": "65f5ed8ad2a72db026241da3", "sets": 3, "repsMin": 6, "repsMax": 8 },
-			{ "exerciseId": "65f5ed8ad2a72db026241da4", "sets": 3, "repsMin": 10, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241da6", "sets": 3, "repsMin": 8, "repsMax": 10 },
-			{ "exerciseId": "65f5ed8ad2a72db026241da7", "sets": 3, "repsMin": 12, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241da9", "sets": 3, "repsMin": 10, "repsMax": 12 },
-			{ "exerciseId": "65f5ed8ad2a72db026241dac", "sets": 3, "repsMin": 12, "repsMax": 15 },
-			{ "exerciseId": "65f5ed8ad2a72db026241db0", "sets": 3, "repsMin": 12, "repsMax": 15 }
+			{ "id": "65f5ed8ad2a72db026241da3", "sets": 3, "repsMin": 6, "repsMax": 8 },
+			{ "id": "65f5ed8ad2a72db026241da4", "sets": 3, "repsMin": 10, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241da6", "sets": 3, "repsMin": 8, "repsMax": 10 },
+			{ "id": "65f5ed8ad2a72db026241da7", "sets": 3, "repsMin": 12, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241da9", "sets": 3, "repsMin": 10, "repsMax": 12 },
+			{ "id": "65f5ed8ad2a72db026241dac", "sets": 3, "repsMin": 12, "repsMax": 15 },
+			{ "id": "65f5ed8ad2a72db026241db0", "sets": 3, "repsMin": 12, "repsMax": 15 }
 		]
 	}
 ]

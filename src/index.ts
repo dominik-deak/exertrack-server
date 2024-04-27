@@ -40,30 +40,6 @@ server.use(cors()); // TODO disable cors for production
 // Load routes
 routes.forEach(route => route.addTo(server));
 
-// Prints all routes added to the server
-// server._router.stack.forEach((middleware: { route: { path: any; methods: any }; name: string; handle: { stack: any[] } }) => {
-// 	if (middleware.route) {
-// 		// Only consider middleware that is a route
-// 		const { path, methods } = middleware.route;
-// 		const methodNames = Object.keys(methods)
-// 			.map(method => method.toUpperCase())
-// 			.join(', ');
-// 		console.log(`${methodNames} ${path}`);
-// 	} else if (middleware.name === 'router') {
-// 		// For routers, dive into the routes they contain
-// 		middleware.handle.stack.forEach((handler: { route: { path: any; methods: any } }) => {
-// 			const routePath = handler.route?.path;
-// 			const routeMethods = handler.route?.methods;
-// 			const methodNames = routeMethods
-// 				? Object.keys(routeMethods)
-// 						.map(method => method.toUpperCase())
-// 						.join(', ')
-// 				: '';
-// 			console.log(`${methodNames} ${routePath}`);
-// 		});
-// 	}
-// });
-
 // Start server
 server
 	.listen(PORT, () => {

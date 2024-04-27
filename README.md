@@ -1,0 +1,4 @@
+-   run server locally with `npm run dev`
+-   build server with `npm run build`
+    -   start built server with `npm run start`
+-   generate new Prisma Client with `npm run prisma`

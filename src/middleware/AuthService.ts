@@ -14,6 +14,12 @@ import UserOperations from '../db/UserOperations';
 class AuthService {
 	private static userOps = UserOperations.getInstance();
 
+	/**
+	 * Verifies the JWT token in the request
+	 * @param req request object
+	 * @param res response object
+	 * @param next next function to call after verification
+	 */
 	public static verifyToken(req: Request, res: Response, next: NextFunction) {
 		const authHeader = req.headers.authorization;
 		const token = authHeader?.split(' ')[1]; // 'bearer token'
@@ -33,7 +39,7 @@ class AuthService {
 			}
 
 			try {
-				// `this.userOps` won't work because `userOps` static
+				// `this.userOps` won't work because `userOps` is static
 				const user = await AuthService.userOps.getUserById(userId);
 				if (!user) {
 					return res.status(404).json({ error: 'User not found' });

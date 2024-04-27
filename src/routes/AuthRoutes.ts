@@ -6,6 +6,9 @@ import UserOperations from '../db/UserOperations';
 import AuthService from '../middleware/AuthService';
 import BaseRoute from './BaseRoute';
 
+/**
+ * Authentication routes
+ */
 class AuthRoutes extends BaseRoute {
 	private static instance: AuthRoutes;
 	private authOps = AuthOperations.getInstance();
@@ -17,6 +20,9 @@ class AuthRoutes extends BaseRoute {
 		this.initialiseRoutes();
 	}
 
+	/**
+	 * @returns AuthRoutes instance
+	 */
 	public static getInstance(): AuthRoutes {
 		if (!AuthRoutes.instance) {
 			AuthRoutes.instance = new AuthRoutes();
@@ -25,27 +31,38 @@ class AuthRoutes extends BaseRoute {
 		return AuthRoutes.instance;
 	}
 
-	/**
-	 * `.bind` needed to preserve `this.function` working properly
-	 *
-	 * method source: https://www.w3schools.com/js/js_function_bind.asp
-	 */
-	public configureRoutes(): void {
+	public configureRoutes() {
 		this.router.post('/register', this.register.bind(this));
 		this.router.post('/login', this.login.bind(this));
 		this.router.post('/token', this.exchangeTokens.bind(this));
+		this.router.post('/check-password', AuthService.verifyToken, this.checkPassword.bind(this));
 		this.router.delete('/logout', AuthService.verifyToken, this.logout.bind(this));
 		this.router.delete('/delete-account', AuthService.verifyToken, this.deleteAccount.bind(this));
 	}
 
+	/**
+	 * Generates an access token by signing the user id
+	 * @param userId the user id
+	 * @returns the access token
+	 */
 	private generateAccessToken(userId: string) {
 		return jwt.sign({ userId: userId }, process.env.JWT_ACCESS_SECRET as string, { expiresIn: '1h' });
 	}
 
+	/**
+	 * Generates a refresh token by signing the user id
+	 * @param userId the user id
+	 * @returns the refresh token
+	 */
 	private generateRefreshToken(userId: string) {
 		return jwt.sign({ userId: userId }, process.env.JWT_REFRESH_SECRET as string);
 	}
 
+	/**
+	 * Registers a new user using the user operations repository class
+	 * @param req request object
+	 * @param res response object
+	 */
 	private async register(req: Request, res: Response) {
 		const { email, password } = req.body;
 
@@ -70,6 +87,11 @@ class AuthRoutes extends BaseRoute {
 		}
 	}
 
+	/**
+	 * Logs in a user using the auth operations repository class
+	 * @param req request object
+	 * @param res response object
+	 */
 	private async login(req: Request, res: Response) {
 		const { email, password } = req.body;
 
@@ -100,6 +122,11 @@ class AuthRoutes extends BaseRoute {
 		}
 	}
 
+	/**
+	 * Exchanges a refresh token for an access token
+	 * @param req request object
+	 * @param res response object
+	 */
 	private async exchangeTokens(req: Request, res: Response) {
 		const { refreshToken } = req.body;
 		if (!refreshToken) {
@@ -135,6 +162,41 @@ class AuthRoutes extends BaseRoute {
 		);
 	}
 
+	/**
+	 * Checks if a password is valid
+	 * @param req request object
+	 * @param res response object
+	 */
+	private async checkPassword(req: Request, res: Response) {
+		const { currentPassword } = req.body;
+		if (!currentPassword) {
+			return res.status(403).json({ error: 'Missing required field(s)' });
+		}
+
+		const user = req.user;
+		if (!user) {
+			return res.status(403).json({ error: "Can't get user from request" });
+		}
+
+		try {
+			const valid = await bcrypt.compare(currentPassword, user.password);
+
+			if (valid) {
+				res.status(200).json({ message: 'Password valid' });
+			} else {
+				res.status(401).json({ error: 'Invalid password' });
+			}
+		} catch (err) {
+			console.error('Check Password Error:', err);
+			res.status(500).json({ error: 'Failed to check password' });
+		}
+	}
+
+	/**
+	 * Logs out a user by deleting their refresh token using the auth operations repository class
+	 * @param req request object
+	 * @param res response object
+	 */
 	private async logout(req: Request, res: Response) {
 		const { refreshToken } = req.body;
 		if (!refreshToken) {
@@ -149,13 +211,18 @@ class AuthRoutes extends BaseRoute {
 
 			await this.authOps.deleteRefreshToken(refreshToken);
 
-			res.status(204).json({ message: 'Logged out successfully' });
+			res.status(200).json({ message: 'Logged out successfully' });
 		} catch (err) {
 			console.error('Logout Error:', err);
 			return res.status(500).json({ message: 'Failed to log out' });
 		}
 	}
 
+	/**
+	 * Deletes an account using the user operations repository class
+	 * @param req request object
+	 * @param res response object
+	 */
 	private async deleteAccount(req: Request, res: Response) {
 		const { refreshToken } = req.body;
 		if (!refreshToken) {
@@ -175,7 +242,7 @@ class AuthRoutes extends BaseRoute {
 			await this.authOps.deleteRefreshToken(refreshToken);
 			await this.userOps.deleteUser(userId);
 
-			res.status(204).json({ message: 'Account deleted successfully' });
+			res.status(200).json({ message: 'Account deleted successfully' });
 		} catch (err) {
 			console.error('Delete Account Error:', err);
 			res.status(500).json({ error: 'Failed to delete account' });

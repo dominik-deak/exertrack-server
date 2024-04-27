@@ -46,7 +46,7 @@ model Workout {
     id         String            @id @default(auto()) @map("_id") @db.ObjectId
     userId     String            @db.ObjectId
     templateId String?           @db.ObjectId
-    duration   Int
+    duration   Int // Duration in minutes
     created    DateTime          @default(now())
     updated    DateTime          @updatedAt
     exercises  WorkoutExercise[] // Nested array of WorkoutExercise objects within the Workout document
@@ -55,8 +55,8 @@ model Workout {
 }
 
 type WorkoutExercise {
-    exerciseId String               @db.ObjectId
-    sets       WorkoutExerciseSet[] // Nested array of WorkoutExerciseSet objects within the WorkoutExercise object
+    id   String               @db.ObjectId
+    sets WorkoutExerciseSet[] // Nested array of WorkoutExerciseSet objects within the WorkoutExercise object
 }
 
 type WorkoutExerciseSet {
@@ -88,8 +88,8 @@ model Template {
 }
 
 type TemplateExercise {
-    exerciseId String @db.ObjectId
-    sets       Int
-    repsMin    Int
-    repsMax    Int
+    id      String @db.ObjectId
+    sets    Int
+    repsMin Int
+    repsMax Int
 }

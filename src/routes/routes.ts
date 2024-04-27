@@ -4,6 +4,9 @@ import TemplateRoutes from './protected/TemplateRoutes';
 import UserRoutes from './protected/UserRoutes';
 import WorkoutRoutes from './protected/WorkoutRoutes';
 
+/**
+ * Array of all routes in the application
+ */
 const routes = [
 	AuthRoutes.getInstance(),
 	UserRoutes.getInstance(),
