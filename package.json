@@ -6,11 +6,9 @@
 	"author": "w1778659",
 	"scripts": {
 		"dev": "nodemon --exec ts-node src/index.ts",
-		"prebuild": "rimraf dist",
+		"prebuild": "npx prisma generate && rimraf dist",
 		"build": "npx tsc",
-		"start": "node dist/index.js",
-		"prisma": "npx prisma generate",
-		"prisma-test": "npx ts-node prisma/test.ts"
+		"start": "node dist/index.js"
 	},
 	"dependencies": {
 		"@prisma/client": "^5.10.2",
