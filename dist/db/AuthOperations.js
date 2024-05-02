@@ -54,7 +54,7 @@ class AuthOperations {
     getRefreshToken(token) {
         return __awaiter(this, void 0, void 0, function* () {
             const refreshToken = yield this.db.refreshToken.findUnique({
-                where: { token }
+                where: { token: token }
             });
             return refreshToken;
         });
@@ -67,7 +67,7 @@ class AuthOperations {
     getRefreshTokenByUserId(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const refreshToken = yield this.db.refreshToken.findUnique({
-                where: { userId }
+                where: { userId: userId }
             });
             return refreshToken;
         });
@@ -79,7 +79,7 @@ class AuthOperations {
     deleteRefreshToken(token) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.db.refreshToken.delete({
-                where: { token }
+                where: { token: token }
             });
         });
     }

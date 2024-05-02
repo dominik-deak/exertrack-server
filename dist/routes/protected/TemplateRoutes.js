@@ -107,10 +107,15 @@ class TemplateRoutes extends BaseRoute_1.default {
      * @param res response object
      */
     getTemplatePredictions(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const { templateId } = req.params;
             if (!templateId) {
                 return res.status(403).json({ error: "Can't get template ID from request" });
+            }
+            const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+            if (!userId) {
+                return res.status(403).json({ error: "Can't get user ID from request" });
             }
             try {
                 const templateWithExercises = yield this.tempOps.getTemplateWithExercises(templateId);
@@ -118,14 +123,14 @@ class TemplateRoutes extends BaseRoute_1.default {
                     return res.status(404).json({ error: "Can't find template" });
                 }
                 const exerciseIds = templateWithExercises.exercises.map(exercise => exercise.id);
-                const workouts = yield this.workoutOps.getWorkoutsByExerciseIds(exerciseIds);
+                const workouts = yield this.workoutOps.getUserWorkoutsByExerciseIds(userId, exerciseIds);
                 workouts.sort((a, b) => a.created.getTime() - b.created.getTime());
                 const firstSetsMap = {};
-                const defaultPredictions = {};
+                const predictions = {};
                 const previousBestSets = {};
                 exerciseIds.forEach(id => {
                     firstSetsMap[id] = [];
-                    defaultPredictions[id] = 'increase weight'; // default prediction if there's not enough data
+                    predictions[id] = null;
                     previousBestSets[id] = null;
                 });
                 workouts.forEach(workout => {
@@ -141,15 +146,17 @@ class TemplateRoutes extends BaseRoute_1.default {
                     });
                 });
                 const predictor = yield PerformancePredictor_1.default.create();
-                const predictions = Object.assign({}, defaultPredictions);
                 yield Promise.all(Object.entries(firstSetsMap).map(([exerciseId, sets]) => __awaiter(this, void 0, void 0, function* () {
-                    if (sets.length >= 2) {
+                    if (sets.length === 1) {
+                        predictions[exerciseId] = 'increase weight or reps';
+                    }
+                    else if (sets.length >= 2) {
                         const prediction = yield predictor.predict(sets);
                         predictions[exerciseId] = prediction[prediction.length - 1];
                     }
                 })));
                 // console.log('Predictions:', predictions);
-                res.status(200).json({ predictions, previousBestSets });
+                res.status(200).json({ predictions: predictions, previousBestSets: previousBestSets });
             }
             catch (err) {
                 console.error('Getting template predictions error:', err);

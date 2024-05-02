@@ -51,7 +51,7 @@ class TemplateOperations {
     getUserTemplates(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const templates = yield this.db.template.findMany({
-                where: { userId }
+                where: { userId: userId }
             });
             return templates;
         });

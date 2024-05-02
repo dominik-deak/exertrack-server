@@ -1,7 +1,7 @@
 import { ExerciseSet } from './Workout';
 
 export type Predictions = {
-	[key: string]: string;
+	[key: string]: string | null;
 };
 
 export type SetMap = {

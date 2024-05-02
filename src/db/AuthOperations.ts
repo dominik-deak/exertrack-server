@@ -45,7 +45,7 @@ class AuthOperations {
 	 */
 	public async getRefreshToken(token: string) {
 		const refreshToken = await this.db.refreshToken.findUnique({
-			where: { token }
+			where: { token: token }
 		});
 		return refreshToken;
 	}
@@ -57,7 +57,7 @@ class AuthOperations {
 	 */
 	public async getRefreshTokenByUserId(userId: string) {
 		const refreshToken = await this.db.refreshToken.findUnique({
-			where: { userId }
+			where: { userId: userId }
 		});
 		return refreshToken;
 	}
@@ -68,7 +68,7 @@ class AuthOperations {
 	 */
 	public async deleteRefreshToken(token: string) {
 		await this.db.refreshToken.delete({
-			where: { token }
+			where: { token: token }
 		});
 	}
 }

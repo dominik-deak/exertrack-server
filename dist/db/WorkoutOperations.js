@@ -59,7 +59,7 @@ class WorkoutOperations {
     getWorkoutHistory(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const workouts = yield this.db.workout.findMany({
-                where: { userId }
+                where: { userId: userId }
             });
             return workouts;
         });
@@ -109,10 +109,8 @@ class WorkoutOperations {
             }
             const workoutsForPeriod = yield this.db.workout.findMany({
                 where: {
-                    userId,
-                    created: {
-                        gte: earliestDate
-                    }
+                    userId: userId,
+                    created: { gte: earliestDate }
                 }
             });
             const volumeForPeriod = workoutsForPeriod.map(workout => {
@@ -140,9 +138,7 @@ class WorkoutOperations {
     getSplitUsages(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const templateWorkouts = yield this.db.workout.findMany({
-                where: {
-                    userId
-                }
+                where: { userId: userId }
             });
             // using Record to specify key-value pairs
             // source: https://stackoverflow.com/a/58085320
@@ -162,14 +158,15 @@ class WorkoutOperations {
         });
     }
     /**
-     * Retrieves a list of workouts by exercise IDs
+     * Retrieves a list of workouts by exercise IDs, for a specific user
      * @param exerciseIds the list of exercise IDs
      * @returns the list of workouts
      */
-    getWorkoutsByExerciseIds(exerciseIds) {
+    getUserWorkoutsByExerciseIds(userId, exerciseIds) {
         return __awaiter(this, void 0, void 0, function* () {
             const workouts = yield this.db.workout.findMany({
                 where: {
+                    userId: userId,
                     exercises: {
                         some: {
                             id: {

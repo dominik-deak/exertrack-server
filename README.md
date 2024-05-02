@@ -1,4 +1,6 @@
--   run server locally with `npm run dev`
--   build server with `npm run build`
-    -   start built server with `npm run start`
--   generate new Prisma Client with `npx prisma generate`
+1. install packages with `npm i`
+2. generate prisma client with `npx prisma generate`
+3. run server locally
+    - run dev server with `npm run dev`
+    - build server with `npm run build`
+    - start production server with `npm run start`

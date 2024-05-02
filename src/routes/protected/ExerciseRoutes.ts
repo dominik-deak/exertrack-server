@@ -162,8 +162,13 @@ class ExerciseRoutes extends BaseRoute {
 			return res.status(403).json({ error: "Can't get exercise ID from request" });
 		}
 
+		const userId = req.user?.id;
+		if (!userId) {
+			return res.status(403).json({ error: "Can't get user ID from request" });
+		}
+
 		try {
-			const workouts = await this.workoutOps.getWorkoutsByExerciseIds([exerciseId]);
+			const workouts = await this.workoutOps.getUserWorkoutsByExerciseIds(userId, [exerciseId]);
 
 			const firstSetsMap: SetMap = {};
 			const previousBestSets: PreviousBestSets = {};
@@ -187,27 +192,25 @@ class ExerciseRoutes extends BaseRoute {
 				});
 			});
 
-			// determine if predictions can be made or use default prediction
-			const defaultPrediction = 'increase weight';
 			const predictions: Predictions = {};
-			predictions[exerciseId] = defaultPrediction;
+			predictions[exerciseId] = null;
 
-			if (workouts.length >= 2) {
-				const predictor = await PerformancePredictor.create();
-				const predictionResults = await Promise.all(
-					Object.entries(firstSetsMap).map(async ([exerciseId, sets]) => {
-						if (sets.length >= 2) {
-							const prediction = await predictor.predict(sets);
-							return { exerciseId, prediction: prediction[prediction.length - 1] };
-						}
-						return { exerciseId, prediction: defaultPrediction }; // maintain default if not enough data
-					})
-				);
+			const predictor = await PerformancePredictor.create();
+			const predictionResults = await Promise.all(
+				Object.entries(firstSetsMap).map(async ([exerciseId, sets]) => {
+					if (sets.length == 1) {
+						return { exerciseId, prediction: 'increase weight or reps' };
+					} else if (sets.length >= 2) {
+						const prediction = await predictor.predict(sets);
+						return { exerciseId, prediction: prediction[prediction.length - 1] };
+					}
+					return { exerciseId, prediction: null };
+				})
+			);
 
-				predictionResults.forEach(({ exerciseId, prediction }) => {
-					predictions[exerciseId] = prediction;
-				});
-			}
+			predictionResults.forEach(({ exerciseId, prediction }) => {
+				predictions[exerciseId] = prediction;
+			});
 			// console.log('Predictions:', predictions);
 
 			res.status(200).json({ predictions: predictions, previousBestSets: previousBestSets });

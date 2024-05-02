@@ -73,7 +73,7 @@ class ExerciseOperations {
     getUserExercises(userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const exercises = yield this.db.exercise.findMany({
-                where: { userId }
+                where: { userId: userId }
             });
             return exercises;
         });

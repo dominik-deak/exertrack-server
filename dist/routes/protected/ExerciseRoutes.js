@@ -165,13 +165,18 @@ class ExerciseRoutes extends BaseRoute_1.default {
      * @param res response object
      */
     getExercisePredictions(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const { exerciseId } = req.params;
             if (!exerciseId) {
                 return res.status(403).json({ error: "Can't get exercise ID from request" });
             }
+            const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+            if (!userId) {
+                return res.status(403).json({ error: "Can't get user ID from request" });
+            }
             try {
-                const workouts = yield this.workoutOps.getWorkoutsByExerciseIds([exerciseId]);
+                const workouts = yield this.workoutOps.getUserWorkoutsByExerciseIds(userId, [exerciseId]);
                 const firstSetsMap = {};
                 const previousBestSets = {};
                 previousBestSets[exerciseId] = null;
@@ -191,23 +196,22 @@ class ExerciseRoutes extends BaseRoute_1.default {
                         }
                     });
                 });
-                // determine if predictions can be made or use default prediction
-                const defaultPrediction = 'increase weight';
                 const predictions = {};
-                predictions[exerciseId] = defaultPrediction;
-                if (workouts.length >= 2) {
-                    const predictor = yield PerformancePredictor_1.default.create();
-                    const predictionResults = yield Promise.all(Object.entries(firstSetsMap).map(([exerciseId, sets]) => __awaiter(this, void 0, void 0, function* () {
-                        if (sets.length >= 2) {
-                            const prediction = yield predictor.predict(sets);
-                            return { exerciseId, prediction: prediction[prediction.length - 1] };
-                        }
-                        return { exerciseId, prediction: defaultPrediction }; // maintain default if not enough data
-                    })));
-                    predictionResults.forEach(({ exerciseId, prediction }) => {
-                        predictions[exerciseId] = prediction;
-                    });
-                }
+                predictions[exerciseId] = null;
+                const predictor = yield PerformancePredictor_1.default.create();
+                const predictionResults = yield Promise.all(Object.entries(firstSetsMap).map(([exerciseId, sets]) => __awaiter(this, void 0, void 0, function* () {
+                    if (sets.length == 1) {
+                        return { exerciseId, prediction: 'increase weight or reps' };
+                    }
+                    else if (sets.length >= 2) {
+                        const prediction = yield predictor.predict(sets);
+                        return { exerciseId, prediction: prediction[prediction.length - 1] };
+                    }
+                    return { exerciseId, prediction: null };
+                })));
+                predictionResults.forEach(({ exerciseId, prediction }) => {
+                    predictions[exerciseId] = prediction;
+                });
                 // console.log('Predictions:', predictions);
                 res.status(200).json({ predictions: predictions, previousBestSets: previousBestSets });
             }

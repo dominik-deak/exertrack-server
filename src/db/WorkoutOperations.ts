@@ -50,7 +50,7 @@ class WorkoutOperations {
 	 */
 	public async getWorkoutHistory(userId: string) {
 		const workouts = await this.db.workout.findMany({
-			where: { userId }
+			where: { userId: userId }
 		});
 		return workouts;
 	}
@@ -99,10 +99,8 @@ class WorkoutOperations {
 
 		const workoutsForPeriod = await this.db.workout.findMany({
 			where: {
-				userId,
-				created: {
-					gte: earliestDate
-				}
+				userId: userId,
+				created: { gte: earliestDate }
 			}
 		});
 
@@ -132,9 +130,7 @@ class WorkoutOperations {
 	 */
 	public async getSplitUsages(userId: string) {
 		const templateWorkouts = await this.db.workout.findMany({
-			where: {
-				userId
-			}
+			where: { userId: userId }
 		});
 
 		// using Record to specify key-value pairs
@@ -159,13 +155,14 @@ class WorkoutOperations {
 	}
 
 	/**
-	 * Retrieves a list of workouts by exercise IDs
+	 * Retrieves a list of workouts by exercise IDs, for a specific user
 	 * @param exerciseIds the list of exercise IDs
 	 * @returns the list of workouts
 	 */
-	public async getWorkoutsByExerciseIds(exerciseIds: string[]) {
+	public async getUserWorkoutsByExerciseIds(userId: string, exerciseIds: string[]) {
 		const workouts = await this.db.workout.findMany({
 			where: {
+				userId: userId,
 				exercises: {
 					some: {
 						id: {

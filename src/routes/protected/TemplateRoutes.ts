@@ -107,6 +107,11 @@ class TemplateRoutes extends BaseRoute {
 			return res.status(403).json({ error: "Can't get template ID from request" });
 		}
 
+		const userId = req.user?.id;
+		if (!userId) {
+			return res.status(403).json({ error: "Can't get user ID from request" });
+		}
+
 		try {
 			const templateWithExercises = await this.tempOps.getTemplateWithExercises(templateId);
 			if (!templateWithExercises) {
@@ -114,17 +119,17 @@ class TemplateRoutes extends BaseRoute {
 			}
 
 			const exerciseIds = templateWithExercises.exercises.map(exercise => exercise.id);
-			const workouts = await this.workoutOps.getWorkoutsByExerciseIds(exerciseIds);
+			const workouts = await this.workoutOps.getUserWorkoutsByExerciseIds(userId, exerciseIds);
 
 			workouts.sort((a, b) => a.created.getTime() - b.created.getTime());
 
 			const firstSetsMap: SetMap = {};
-			const defaultPredictions: Predictions = {};
+			const predictions: Predictions = {};
 			const previousBestSets: PreviousBestSets = {};
 
 			exerciseIds.forEach(id => {
 				firstSetsMap[id] = [];
-				defaultPredictions[id] = 'increase weight'; // default prediction if there's not enough data
+				predictions[id] = null;
 				previousBestSets[id] = null;
 			});
 
@@ -142,10 +147,11 @@ class TemplateRoutes extends BaseRoute {
 			});
 
 			const predictor = await PerformancePredictor.create();
-			const predictions = { ...defaultPredictions };
 			await Promise.all(
 				Object.entries(firstSetsMap).map(async ([exerciseId, sets]) => {
-					if (sets.length >= 2) {
+					if (sets.length === 1) {
+						predictions[exerciseId] = 'increase weight or reps';
+					} else if (sets.length >= 2) {
 						const prediction = await predictor.predict(sets);
 						predictions[exerciseId] = prediction[prediction.length - 1];
 					}
@@ -153,7 +159,7 @@ class TemplateRoutes extends BaseRoute {
 			);
 			// console.log('Predictions:', predictions);
 
-			res.status(200).json({ predictions, previousBestSets });
+			res.status(200).json({ predictions: predictions, previousBestSets: previousBestSets });
 		} catch (err) {
 			console.error('Getting template predictions error:', err);
 			res.status(500).json({ error: 'Failed to get template predictions' });

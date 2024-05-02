@@ -43,7 +43,7 @@ class TemplateOperations {
 	 */
 	public async getUserTemplates(userId: string) {
 		const templates = await this.db.template.findMany({
-			where: { userId }
+			where: { userId: userId }
 		});
 		return templates;
 	}

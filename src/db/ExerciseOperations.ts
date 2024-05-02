@@ -64,7 +64,7 @@ class ExerciseOperations {
 	 */
 	public async getUserExercises(userId: string) {
 		const exercises = await this.db.exercise.findMany({
-			where: { userId }
+			where: { userId: userId }
 		});
 		return exercises;
 	}

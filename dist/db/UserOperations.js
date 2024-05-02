@@ -67,7 +67,7 @@ class UserOperations {
     getUserByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.db.user.findUnique({
-                where: { email }
+                where: { email: email }
             });
             return user;
         });

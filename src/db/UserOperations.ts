@@ -57,7 +57,7 @@ class UserOperations {
 	 */
 	public async getUserByEmail(email: string) {
 		const user = await this.db.user.findUnique({
-			where: { email }
+			where: { email: email }
 		});
 		return user;
 	}
