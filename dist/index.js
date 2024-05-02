@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
+// import expressListRoutes from 'express-list-routes';
 const fs_1 = __importDefault(require("fs"));
 const routes_1 = __importDefault(require("./routes/routes"));
 // Exit if .env file doesn't exist
@@ -39,6 +40,8 @@ server.use(express_1.default.json());
 server.use((0, cors_1.default)()); // TODO disable cors for production
 // Load routes
 routes_1.default.forEach(route => route.addTo(server));
+// // prints all routes registered in the express app for testing purposes
+// expressListRoutes(server);
 // Start server
 server
     .listen(PORT, () => {

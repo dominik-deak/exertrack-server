@@ -1,6 +1,7 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+// import expressListRoutes from 'express-list-routes';
 import fs from 'fs';
 import routes from './routes/routes';
 
@@ -39,6 +40,9 @@ server.use(cors()); // TODO disable cors for production
 
 // Load routes
 routes.forEach(route => route.addTo(server));
+
+// // prints all routes registered in the express app for testing purposes
+// expressListRoutes(server);
 
 // Start server
 server
