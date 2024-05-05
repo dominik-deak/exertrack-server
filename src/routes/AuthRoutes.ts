@@ -243,7 +243,7 @@ class AuthRoutes extends BaseRoute {
 			}
 
 			await this.authOps.deleteRefreshToken(refreshToken);
-			await this.userOps.deleteUser(userId);
+			await this.userOps.deleteUserAndData(userId); // also deletes all data related to user
 
 			res.status(200).json({ message: 'Account deleted successfully' });
 		} catch (err) {

@@ -98,7 +98,16 @@ class UserOperations {
 	 * Deletes a user from the database
 	 * @param userId the id of the user to delete
 	 */
-	public async deleteUser(userId: string) {
+	public async deleteUserAndData(userId: string) {
+		await this.db.exercise.deleteMany({
+			where: { userId: userId }
+		});
+		await this.db.template.deleteMany({
+			where: { userId: userId }
+		});
+		await this.db.workout.deleteMany({
+			where: { userId: userId }
+		});
 		await this.db.user.delete({
 			where: { id: userId }
 		});
