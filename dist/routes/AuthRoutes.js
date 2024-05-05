@@ -108,14 +108,17 @@ class AuthRoutes extends BaseRoute_1.default {
                 if (!isPasswordValid) {
                     return res.status(401).json({ error: 'Invalid password' });
                 }
-                const refreshTokenExists = yield this.authOps.getRefreshTokenByUserId(user.id);
-                if (refreshTokenExists) {
-                    // TODO return existing refresh token instead of error
-                    return res.status(409).json({ error: 'Already logged in' });
+                let refreshToken = null;
+                // checks for existing refresh token (exinsting login session)
+                const refTokenObj = yield this.authOps.getRefreshTokenByUserId(user.id);
+                if (refTokenObj) {
+                    refreshToken = refTokenObj.token;
+                }
+                else {
+                    refreshToken = this.generateRefreshToken(user.id);
+                    yield this.authOps.createRefreshToken(refreshToken, user.id); // stores refresh token in database
                 }
                 const accessToken = this.generateAccessToken(user.id);
-                const refreshToken = this.generateRefreshToken(user.id);
-                yield this.authOps.createRefreshToken(refreshToken, user.id); // stores refresh token in database
                 res.status(200).json({ accessToken: accessToken, refreshToken: refreshToken });
             }
             catch (err) {
