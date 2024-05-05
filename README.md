@@ -3,4 +3,4 @@
 3. run server locally
     - run dev server with `npm run dev`
     - build server with `npm run build`
-    - start production server with `npm run start`
+    - run production server with `npm run start`

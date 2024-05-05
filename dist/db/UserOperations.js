@@ -110,8 +110,17 @@ class UserOperations {
      * Deletes a user from the database
      * @param userId the id of the user to delete
      */
-    deleteUser(userId) {
+    deleteUserAndData(userId) {
         return __awaiter(this, void 0, void 0, function* () {
+            yield this.db.exercise.deleteMany({
+                where: { userId: userId }
+            });
+            yield this.db.template.deleteMany({
+                where: { userId: userId }
+            });
+            yield this.db.workout.deleteMany({
+                where: { userId: userId }
+            });
             yield this.db.user.delete({
                 where: { id: userId }
             });

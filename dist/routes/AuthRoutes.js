@@ -238,7 +238,7 @@ class AuthRoutes extends BaseRoute_1.default {
                     return res.status(403).json({ error: "Can't get user ID from request" });
                 }
                 yield this.authOps.deleteRefreshToken(refreshToken);
-                yield this.userOps.deleteUser(userId);
+                yield this.userOps.deleteUserAndData(userId); // also deletes all data related to user
                 res.status(200).json({ message: 'Account deleted successfully' });
             }
             catch (err) {
